@@ -42,49 +42,48 @@ const createGenreOptions = () => {
 
   document.querySelector("[data-search-genres]").appendChild(genreHtml);
 
-  const authorsHtml = document.createDocumentFragment();
-  const firstAuthorElement = document.createElement("option");
-  firstAuthorElement.value = "any";
-  firstAuthorElement.innerText = "All Authors";
-  authorsHtml.appendChild(firstAuthorElement);
+ // this function is to create author options and append them to the author select element
 
-  for (const [id, name] of Object.entries(authors)) {
-    const element = document.createElement("option");
-    element.value = id;
-    element.innerText = name;
-    authorsHtml.appendChild(element);
-  }
-
-  document.querySelector("[data-search-genres]").appendChild(genreHTML);
-};
-
-if (
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches
-) {
-  document.querySelector("[data-settings-theme]").value = "night";
-  document.documentElement.style.setProperty("--color-dark", "255, 255, 255");
-  document.documentElement.style.setProperty("--color-light", "10, 10, 20");
-} else {
-  document.querySelector("[data-settings-theme]").value = "day";
-  document.documentElement.style.setProperty("--color-dark", "10, 10, 20");
-  document.documentElement.style.setProperty("--color-light", "255, 255, 255");
-}
-
-document.querySelector("[data-list-button]").innerText = `Show more (${
-  books.length - BOOKS_PER_PAGE
-})`;
-document.querySelector("[data-list-button]").disabled =
-  matches.length - page * BOOKS_PER_PAGE > 0;
-
-document.querySelector("[data-list-button]").innerHTML = `
-    <span>Show more</span>
-    <span class="list__remaining"> (${
-      matches.length - page * BOOKS_PER_PAGE > 0
-        ? matches.length - page * BOOKS_PER_PAGE
-        : 0
-    })</span>
-`;
+const createAuthorOptions = () => {
+    const authorHTML = document.createDocumentFragment();
+    const firstAuthorElement = document.createElement("option");
+    firstAuthorElement.value = "any";
+    firstAuthorElement.innerText = "All Authors";
+    authorHTML.appendChild(firstAuthorElement);
+  
+    for (const [id, name] of Object.entries(authors)) {
+      const element = document.createElement("option");
+      element.value = id;
+      element.innerText = name;
+      authorHTML.appendChild(element);
+    }
+  
+    document.querySelector("[data-search-authors]").appendChild(authorHTML);
+  };
+  createAuthorOptions();
+  
+  // this is to set a theme to day and night
+  const setTheme = () => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "night") {
+      document.documentElement.style.setProperty("--color-dark", "255, 255, 255");
+    }
+  
+    if (theme === "day") {
+      document.documentElement.style.setProperty("--color-dark", "0, 0, 0");
+    }
+  
+    if (!theme) {
+      localStorage.setItem("theme", "day");
+      document.documentElement.style.setProperty("--color-dark", "0, 0, 0");
+    }
+  
+    document.querySelector("[data-settings-theme]").value = theme;
+  };
+  setTheme();
+  
+  // this is to update the show more button
+  // Event listeners
 
 document.querySelector("[data-search-cancel]").addEventListener("click", () => {
   document.querySelector("[data-search-overlay]").open = false;
