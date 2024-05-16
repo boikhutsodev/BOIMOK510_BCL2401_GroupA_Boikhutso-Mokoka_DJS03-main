@@ -106,6 +106,7 @@ function showMoreButton() {
   selectors.listButton.appendChild(document.createTextNode("Show more"));
   selectors.listButton.appendChild(remainingSpan);
 }
+
 // Function to setup event listeners
 function setupEventListeners() {
   // Canceling the search modal
@@ -203,6 +204,7 @@ function setupEventListeners() {
     }
     selectors.dataSettingsOverlay.open = false;
   });
+  showMoreButton();
   // Show more button
   selectors.listButton.addEventListener("click", () => {
     const fragment = document.createDocumentFragment();
@@ -224,6 +226,7 @@ function setupEventListeners() {
     }
     selectors.dataListItems.appendChild(fragment);
     page += 1;
+    showMoreButton();
   });
   // Book preview
   selectors.dataListItems.addEventListener("click", (event) => {
@@ -253,6 +256,8 @@ function setupEventListeners() {
     }
   });
 }
+
+showMoreButton();
 // Call functions to initialize the application
 document.addEventListener("DOMContentLoaded", function () {
   console.log("scrips.js and the DOM are loaded");
