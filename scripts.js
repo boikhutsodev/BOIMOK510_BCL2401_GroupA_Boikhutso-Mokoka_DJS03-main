@@ -3,29 +3,41 @@ import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
 let page = 1;
 let matches = books;
 
-const starting = document.createDocumentFragment();
+// Encapsulate this code in an arrow function to make it more structured
+// This function will HTML elements for the book
 
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
-  const element = document.createElement("button");
-  element.classList = "preview";
-  element.setAttribute("data-preview", id);
+const createPreviewElement = (matches, parentElement) => {
 
-  element.innerHTML = `
-        <img
-            class="preview__image"
-            src="${image}"
-        />
-        
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-    `;
+    const fragment = document.createDocumentFragment();
+    matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
+    const buttonElement = document.createElement("button");
+    element.classList = "preview";
+    element.setAttribute("data-preview", id);
 
-  starting.appendChild(element);
-}
+    buttonElement.innerHTML = `
+    <img
+      class="preview__image"
+      src="${image}"
+    />
+  
+    <div class="preview__info">
+  
+    <h3 class="preview__title">${title}</h3>
+    <div class="preview__author">${authors[author]}</div>
+    </div>`;
+  
+    fragment.appendChild(buttonElement);
+    )};
+    parentElement.appendChild(fragment);
+  };
+  
+  const startingElement = document.querySelector("[data-list-items]");
+  createPreviewElement(matches, startingElement);
 
 document.querySelector("[data-list-items]").appendChild(starting);
+
+// create an arrow function that is going hold the genre options
+// create the first option that will append new genre options
 
 const genreHtml = document.createDocumentFragment();
 const firstGenreElement = document.createElement("option");
