@@ -4,35 +4,35 @@ let page = 1;
 let matches = books;
 
 // Encapsulate this code in an arrow function to make it more structured
-// This function will HTML elements for the book
+// Here I am defining the function to create the preview elements for books then append them to parent element
 
 const createPreviewElement = (matches, parentElement) => {
-
-    const fragment = document.createDocumentFragment();
-    matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
+  const fragment = document.createDocumentFragment();
+  matches.slice(0, BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
     const buttonElement = document.createElement("button");
-    element.classList = "preview";
-    element.setAttribute("data-preview", id);
+    buttonElement.classList = "preview";
+    buttonElement.setAttribute("data-preview", id);
 
     buttonElement.innerHTML = `
-    <img
-      class="preview__image"
-      src="${image}"
-    />
-  
-    <div class="preview__info">
-  
-    <h3 class="preview__title">${title}</h3>
-    <div class="preview__author">${authors[author]}</div>
-    </div>`;
-  
+          <img
+            class="preview__image"
+            src="${image}"
+            alt="${title} Cover"
+          />
+          
+          <div class="preview__info">
+            <h3 class="preview__title">${title}</h3>
+            <div class="preview__author">${authors[author]}</div>
+          </div>
+        `;
+
     fragment.appendChild(buttonElement);
-    )};
-    parentElement.appendChild(fragment);
-  };
-  
-  const startingElement = document.querySelector("[data-list-items]");
-  createPreviewElement(matches, startingElement);
+  });
+  parentElement.appendChild(fragment);
+};
+
+const startingElement = document.querySelector("[data-list-items]");
+createPreviewElement(matches, startingElement);
 
 document.querySelector("[data-list-items]").appendChild(starting);
 
