@@ -1,10 +1,10 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
+
 // Initialize page and matches
 let page = 1;
 let matches = books;
 
 // ******** QUERY SELECTORS ******* //
-
 const selectors = {
   // Book List
   dataListItems: document.querySelector("[data-list-items]"),
@@ -48,6 +48,7 @@ function renderBooks() {
   }
   selectors.dataListItems.appendChild(starting);
 }
+
 // Function to render genres
 function renderGenres() {
   const genreHtml = document.createDocumentFragment();
@@ -63,6 +64,7 @@ function renderGenres() {
   }
   selectors.dataSearchGenres.appendChild(genreHtml);
 }
+
 // Function to render authors
 function renderAuthors() {
   const authorsHtml = document.createDocumentFragment();
@@ -78,6 +80,7 @@ function renderAuthors() {
   }
   selectors.dataSearchAuthors.appendChild(authorsHtml);
 }
+
 // Function to set theme
 function setTheme() {
   const prefersDarkMode =
@@ -94,6 +97,7 @@ function setTheme() {
     prefersDarkMode ? "10, 10, 20" : "255, 255, 255"
   );
 }
+
 // Function to update books when "Show more" button is clicked
 function showMoreButton() {
   const remaining = matches.length - page * BOOKS_PER_PAGE;
@@ -258,9 +262,10 @@ function setupEventListeners() {
 }
 
 showMoreButton();
+
 // Call functions to initialize the application
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("scrips.js and the DOM are loaded");
+  console.log("scripts.js and the DOM are loaded");
   renderBooks();
   renderGenres();
   renderAuthors();
